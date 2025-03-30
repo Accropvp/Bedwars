@@ -1,0 +1,26 @@
+name: bedwars
+version: '1.0-SNAPSHOT'
+main: org.accropvp.bedwars.Bedwars
+api-version: '1.21'
+commands:
+  StartBedwars:
+    description: Start the bedwars game
+    usage: /StartBedwars
+  tagbed:
+    description: Tags a bed at the specified location.
+    usage: /tagbed <x> <y> <z> <team>
+  upgradeRadius:
+    description: Set the radius of the upgrade like traps or heal pool
+    usage: /upgradeRadius <radius>
+  diamondSpawnPoint:
+    description: Set the location of the diamond generator
+    usage: /diamondSpawnPoint <x> <y> <z>
+  emeraldSpawnPoint:
+    description: Set the location of the diamond generator
+    usage: /emeraldSpawnPoint <x> <y> <z>
+  forgeSpawnPoint:
+    description: set the location of the team's forge
+    usage: /forgeSpawnPoint <x> <y> <z> <team>
+  removeTag:
+    description: remove to tag in the yml file
+    usage: /removeTag <tag>
