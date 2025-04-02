@@ -581,6 +581,9 @@ public final class Bedwars extends JavaPlugin implements Listener {
     }
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
+        if (event.getPlayer().getGameMode() == GameMode.CREATIVE){
+            return;
+        }
         if (!isBreakable(event.getBlock().getType())){
             event.setCancelled(true);
         }
