@@ -1,5 +1,6 @@
 # Bedwars
- I created a bedwars similar to the hypixel one
+ I created a bedwars similar to the hypixel one <br>
+ this work in paper, you will need to change the plugin.yml file to make it work in other bukkit based plugin server.
 
 # How to start
  First create compatible teams <br>
