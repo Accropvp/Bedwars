@@ -3,7 +3,10 @@ package org.accropvp.bedwars;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 
 import net.kyori.adventure.text.Component;
@@ -444,6 +447,9 @@ public class ItemShop implements Listener {
                 Component.text("Cost : ").append(Component.text("10 iron", NamedTextColor.WHITE))
         ));
         createItemMeta(item, title, lore);
+        ItemMeta meta = item.getItemMeta();
+        // Add new attack damage modifier
+        //meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier("generic.attackDamage", 6, AttributeModifier.Operation.ADD_NUMBER));
         return item;
     }
 

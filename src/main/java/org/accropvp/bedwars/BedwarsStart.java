@@ -14,12 +14,13 @@ public class BedwarsStart implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
 
-        try {
-            bedwars.start();
-            commandSender.sendMessage("Bedwars plugin successfully started");
-        } catch (Exception e) {
-            commandSender.sendMessage("An error occured " + e.getMessage());
-        }
+        //try {
+        bedwars.start();
+        commandSender.sendMessage("Bedwars plugin successfully started");
+        //} catch (Exception e) {
+        //    commandSender.sendMessage("An error occured " + e.getMessage());
+        //    bedwars.getLogger().severe("An error occured " + e.getMessage());
+        //}
         return true;
     }
 }

@@ -100,6 +100,7 @@ public final class Bedwars extends JavaPlugin implements Listener {
         // Initialize the scoreboard
         Bukkit.getScoreboardManager();
         scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+        storageHandler.addKeyValue("UpgradeRadius", "10");
         HasStarted = false;
     }
 
@@ -117,7 +118,7 @@ public final class Bedwars extends JavaPlugin implements Listener {
             }
             Set<String> storageKeys = storageHandler.getAllKeys();
             for (String key : storageKeys){
-                if (Objects.equals(storageHandler.getValue(key), team.getName())){
+                if (Objects.equals(storageHandler.getValue(key), team.getName()) && !team.getPlayers().isEmpty()){
                     isTeamBedHere.put(team, true);
                 }
             }
@@ -257,14 +258,14 @@ public final class Bedwars extends JavaPlugin implements Listener {
                 getLogger().severe("There is no forge location for the team : " + team.getName());
             }
             for (Location location : ForgeLocations){
-                overworld.dropItem(location, new ItemStack(Material.IRON_INGOT, 2 * (forgeLvl +1)));
+                overworld.dropItemNaturally(location, new ItemStack(Material.IRON_INGOT, 2 * (forgeLvl +1)));
             }
         }, 0L, 2*20L);
         teamTaskList.add(task);
         // Schedule the task and store its ID
         int task2 = scheduler.scheduleSyncRepeatingTask(this, () -> {
             for (Location location : ForgeLocations){
-                overworld.dropItem(location, new ItemStack(Material.GOLD_INGOT, (forgeLvl +1)));
+                overworld.dropItemNaturally(location, new ItemStack(Material.GOLD_INGOT, (forgeLvl +1)));
             }
         }, 0L, 5*20L);
 
@@ -276,7 +277,7 @@ public final class Bedwars extends JavaPlugin implements Listener {
         // Schedule the task and store its ID
         int task3 = scheduler.scheduleSyncRepeatingTask(this, () -> {
             for (Location location : ForgeLocations){
-                overworld.dropItem(location, new ItemStack(Material.EMERALD, forgeLvl - 2));
+                overworld.dropItemNaturally(location, new ItemStack(Material.EMERALD, forgeLvl - 2));
             }
         }, 0L, 15*20L);
         teamTaskList.add(task3);
@@ -289,7 +290,7 @@ public final class Bedwars extends JavaPlugin implements Listener {
         int task = scheduler.scheduleSyncRepeatingTask(this, () -> {
             Set<Location> locations = storageHandler.getLocationsForTag("DIAMOND_SPAWNER");
             for (Location location : locations){
-                overworld.dropItem(location, new ItemStack(Material.DIAMOND));
+                overworld.dropItemNaturally(location, new ItemStack(Material.DIAMOND));
             }
         }, 0L, time*20L);
         taskId.add(task);
@@ -302,7 +303,7 @@ public final class Bedwars extends JavaPlugin implements Listener {
         int task = scheduler.scheduleSyncRepeatingTask(this, () -> {
             Set<Location> locations = storageHandler.getLocationsForTag("EMERALD_SPAWNER");
             for (Location location : locations){
-                overworld.dropItem(location, new ItemStack(Material.EMERALD));
+                overworld.dropItemNaturally(location, new ItemStack(Material.EMERALD));
             }
         }, 0L, time*20L);
         taskId.add(task);
@@ -368,7 +369,7 @@ public final class Bedwars extends JavaPlugin implements Listener {
         Material mat = item.getType();
         if (droppedItem.contains(mat)){
             // Spawn the item at the location
-            playerLocation.getWorld().dropItem(playerLocation, item);
+            playerLocation.getWorld().dropItemNaturally(playerLocation, item);
             return null;
         }
         return switch (mat){
@@ -586,6 +587,9 @@ public final class Bedwars extends JavaPlugin implements Listener {
         }
         if (!isBreakable(event.getBlock().getType())){
             event.setCancelled(true);
+        }
+        if (event.getBlock().getType().name().endsWith("_BED")){
+            event.setDropItems(false);
         }
     }
 

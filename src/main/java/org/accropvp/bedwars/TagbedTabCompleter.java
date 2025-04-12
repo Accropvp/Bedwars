@@ -1,5 +1,6 @@
 package org.accropvp.bedwars;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -7,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Team;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -45,6 +47,10 @@ public class TagbedTabCompleter implements TabCompleter {
             case 3: // Suggest Z coordinate
                 suggestions.add(String.valueOf((int) z));
                 break;
+            case 4:
+                for (Team team : Bukkit.getScoreboardManager().getMainScoreboard().getTeams()){
+                    suggestions.add(team.getName());
+                }
             default:
                 break;
         }
